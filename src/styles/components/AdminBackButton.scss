@@ -1,0 +1,12 @@
+.admin-back-button {
+  margin-bottom: 1rem;
+
+  a {
+    text-decoration: underline;
+    color: #007bff;
+
+    &:hover {
+      color: #0056b3;
+    }
+  }
+}

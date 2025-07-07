@@ -1,0 +1,113 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.order-page {
+  padding: 2rem;
+  background: $gradient-miami;
+  min-height: 100vh;
+
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: $text-dark;
+  }
+
+  section {
+    margin-bottom: 3rem;
+
+    h2 {
+      margin-bottom: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+      color: $color-blue;
+      background: $bg-light; 
+      padding: 0.5rem 1rem; 
+      border-radius: 8px;     
+    }
+
+    .grid-products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+  }
+}
+
+.product-card {
+  background: $bg-light;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  width: 260px;
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+  }
+
+  h4 {
+    color: $color-blue;
+    margin: 0.5rem 0;
+  }
+
+  p {
+    margin: 0.25rem 0;
+    color: $text-dark;
+  }
+
+  .price {
+    font-weight: bold;
+    color: $color-pink;
+  }
+
+  button {
+    margin-top: 0.75rem;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    background: $color-blue;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      background: darken($color-blue, 10%);
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .unavailable {
+    color: red;
+    font-weight: bold;
+  }
+}
+
+@include respond-to(tablet) {
+  .product-card {
+    width: 220px;
+  }
+}
+
+@include respond-to(desktop) {
+  .grid-products {
+    justify-content: start;
+  }
+}

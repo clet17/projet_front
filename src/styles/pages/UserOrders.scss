@@ -1,0 +1,85 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.user-orders-page {
+  padding: 2rem 1rem;
+  background-color: $bg-light;
+  color: $text-dark;
+
+  h1 {
+    text-align: center;
+    color: $color-pink;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  section {
+    margin-bottom: 3rem;
+
+    h2 {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.5rem;
+      color: $color-blue;
+    }
+  }
+
+  .order-card {
+    background: $text-light;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+    border: 1px solid #ddd;
+
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: $color-blue;
+    }
+
+    p {
+      margin: 0.25rem 0;
+    }
+
+    .total {
+      font-weight: bold;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: $text-dark;
+    }
+
+    &.highlight {
+      border: 2px solid $color-blue;
+      background: lighten($color-blue, 40%);
+    }
+
+    ul {
+      padding-left: 1rem;
+      margin-top: 0.5rem;
+
+      .product-line {
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+
+        span {
+          display: block;
+        }
+
+        em {
+          font-style: italic;
+          font-size: 0.95rem;
+          color: #666;
+        }
+      }
+    }
+  }
+
+  @include respond-to(tablet) {
+    padding: 2rem 3rem;
+  }
+
+  @include respond-to(desktop) {
+    padding: 3rem 8rem;
+  }
+}

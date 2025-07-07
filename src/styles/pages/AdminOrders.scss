@@ -1,0 +1,95 @@
+// src/styles/pages/AdminOrders.scss
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.admin-orders-page {
+  padding: 2rem 1rem;
+  max-width: 900px;
+  margin: auto;
+
+  h1 {
+    text-align: center;
+    color: $color-pink;
+    margin-bottom: 2rem;
+  }
+
+  section {
+    margin-bottom: 3rem;
+
+    h2 {
+      color: $color-blue;
+      border-bottom: 2px solid $color-blue;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  .order-card {
+    background: $bg-light;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    label {
+      display: block;
+      margin: 0.5rem 0;
+
+      select {
+        margin-left: 0.5rem;
+        padding: 0.4rem;
+        font-size: 1rem;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+    }
+
+    .total {
+      font-weight: bold;
+      color: $color-blue;
+      margin-top: 1rem;
+    }
+
+    &.highlight {
+      border: 2px solid $color-pink;
+      background: lighten($color-pink, 35%);
+    }
+
+    ul {
+      padding-left: 1.25rem;
+      margin-top: 0.5rem;
+
+      .product-line {
+        margin-bottom: 0.5rem;
+
+        span {
+          display: block;
+        }
+
+        em {
+          font-style: italic;
+          font-size: 0.95rem;
+          color: #666;
+        }
+      }
+    }
+  }
+
+  @include respond-to(tablet) {
+    .order-card {
+      padding: 1.5rem;
+    }
+  }
+
+  @include respond-to(desktop) {
+    .order-card {
+      padding: 2rem;
+    }
+  }
+}

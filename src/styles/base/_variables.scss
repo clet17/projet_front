@@ -1,0 +1,24 @@
+// Couleurs principales
+$color-blue: #4fc3f7;
+$color-pink: #f06292;;
+
+
+// Dégradé Miami Vice
+$degrad-blue: #a1d6f6;
+$degrad-pink: #f4a8d9;
+
+// Dégradé utilisable
+$gradient-miami: linear-gradient(to right, $degrad-blue, $degrad-pink);
+
+// Textes
+$text-dark: #222;
+$text-light: #fff;
+
+// Fonds
+$bg-light: #f9f9f9;
+$bg-dark: #1a1a1a;
+
+
+//  Typo
+$font-main: 'Arial', sans-serif;
+$font-size-base: 16px;

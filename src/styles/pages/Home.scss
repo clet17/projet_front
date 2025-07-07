@@ -1,0 +1,142 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.home {
+  font-family: $font-main;
+  background-color: $bg-light;
+  color: $text-dark;
+
+  &__hero {
+    position: relative;
+    width: 100%;
+    max-height: 300px; // Limite la hauteur totale de la section
+    overflow: hidden;
+
+    .home__image {
+      width: 100%;
+      height: auto;
+      max-height: 300px; // Empêche l'image de s'étirer
+      object-fit: cover;
+      display: block;
+    }
+
+    .home__overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+
+      .home__title {
+        font-family: 'Abel', sans-serif;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        color: #0066ff;
+      }
+
+      .home__slogan {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &__actions {
+    background: $gradient-miami;
+    padding: 2rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .home__dish {
+      width: 40%;
+      max-width: 200px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .home__buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      flex: 1;
+
+      .btn {
+        background-color: $text-light;
+        color: $text-dark;
+        padding: 1rem;
+        border: 2px solid #00f0ff; // bleu fluo
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        text-align: center;
+        transition: all 0.3s ease;
+        width: 100%;
+        box-shadow: 0 0 8px #00f0ff;
+
+        &:hover {
+          background-color: lighten($text-light, 10%);
+          box-shadow: 0 0 12px #00f0ff, 0 0 24px #00f0ff;
+        }
+        
+        &:active {
+          border-color: #ff5fd9;
+          box-shadow: 0 0 12px #ff5fd9, 0 0 24px #ff5fd9;
+          transform: scale(0.97);
+        }
+      }
+    }
+  }
+
+  @include respond-to(tablet) {
+    .home__overlay {
+      .home__title {
+        font-size: 2.5rem;
+      }
+      .home__slogan {
+        font-size: 1.2rem;
+      }
+    }
+
+    .home__actions {
+      flex-direction: row;
+      justify-content: space-around;
+
+      .home__buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+
+        .btn {
+          width: 80%;
+        }
+      }
+    }
+  }
+
+  @include respond-to(desktop) {
+    .home__overlay {
+      .home__title {
+        font-size: 3rem;
+      }
+      .home__slogan {
+        font-size: 1.5rem;
+      }
+    }
+
+    .home__actions {
+      padding: 3rem 4rem;
+    }
+
+    .home__buttons {
+      .btn {
+        font-size: 1.3rem;
+        padding: 1.2rem 3rem;
+        width: 60%;
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.admin-dashboard {
+  padding: 2rem 1rem;
+  text-align: center;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: $color-pink;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+
+    li {
+      a {
+        display: block;
+        background: $color-blue;
+        color: white;
+        padding: 1rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: opacity 0.3s;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+
+  @include respond-to(tablet) {
+    ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      li {
+        flex: 1 1 40%;
+        max-width: 300px;
+      }
+    }
+  }
+
+  @include respond-to(desktop) {
+    h1 {
+      font-size: 2.5rem;
+    }
+  }
+}

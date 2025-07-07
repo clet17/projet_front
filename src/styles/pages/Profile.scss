@@ -1,0 +1,110 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.profile {
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem 1rem;
+
+  h1 {
+    text-align: center;
+    color: $color-pink;
+    margin-bottom: 2rem;
+  }
+
+  // Cadre contenant toutes les infos
+  .profile__info {
+    background-color: $bg-light;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+
+    li {
+      margin-bottom: 0.5rem;
+
+      strong {
+        color: #1c78b5;
+      }
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    input {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      background-color: $color-blue;
+      color: white;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken($color-blue, 10%);
+      }
+
+      &:last-of-type {
+        background-color: gray;
+      }
+    }
+  }
+
+  // Actions et boutons en bas
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .btn {
+      padding: 0.8rem;
+      border-radius: 6px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+
+      &--light {
+        background-color: $text-light;
+        color: $text-dark;
+      }
+
+      &--danger {
+        background-color: red;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .btn-modifier {
+    background-color: $color-blue;
+    color: white;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken($color-blue, 10%);
+    }
+  }
+}

@@ -1,0 +1,28 @@
+// src/styles/components/Footer.scss
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.footer {
+  background: $gradient-miami;
+  color: $text-light;
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+
+  &__infos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @include respond-to(tablet) {
+    font-size: 1rem;
+
+    &__infos {
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+  }
+}

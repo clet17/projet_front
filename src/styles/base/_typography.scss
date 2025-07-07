@@ -1,0 +1,16 @@
+@use './variables' as *;
+@import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+
+h1, h2, h3, h4, h5 {
+  font-weight: bold;
+  color: $text-dark;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+.home__title {
+  font-family: 'Abel', sans-serif;
+}

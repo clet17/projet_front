@@ -1,0 +1,109 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.cart-page {
+  padding: 2rem 1rem;
+  max-width: 800px;
+  margin: auto;
+
+  h1 {
+    text-align: center;
+    color: $color-pink;
+    margin-bottom: 2rem;
+  }
+
+  .cart-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: $bg-light;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+    div:first-child {
+      flex: 1;
+    }
+
+    strong {
+      margin-right: 0.5rem;
+      color: $color-blue;
+    }
+
+    .cart-modifiers {
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
+
+      p {
+        margin: 0.2rem 0;
+        color: $text-dark;
+      }
+    }
+
+    .price {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-weight: bold;
+      white-space: nowrap;
+
+      button {
+        background: none;
+        border: none;
+        color: red;
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin-top: 0.3rem;
+      }
+    }
+  }
+
+  h2 {
+    text-align: right;
+    margin-top: 2rem;
+    color: $text-dark;
+  }
+
+  .btn-confirm {
+    display: block;
+    margin: 2rem auto 0;
+    background: $gradient-miami;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  @include respond-to(tablet) {
+    padding: 2rem;
+
+    .cart-item {
+      flex-direction: row;
+      gap: 1rem;
+
+      .price {
+        align-items: flex-end;
+      }
+    }
+
+    .btn-confirm {
+      font-size: 1.2rem;
+    }
+  }
+}
