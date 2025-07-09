@@ -1,7 +1,7 @@
-// src/context/productContext.jsx
 import { createContext, useEffect, useState } from 'react'
 import axios from 'axios'
 
+// Contexte global pour la gestion des produits
 export const ProductContext = createContext(null)
 
 export const ProductProvider = ({ children }) => {
@@ -9,8 +9,10 @@ export const ProductProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+  // Récupération du token pour les requêtes sécurisées
   const token = localStorage.getItem('token')
 
+  // Récupération de tous les produits depuis l'API
   const fetchProducts = async () => {
     setLoading(true)
     try {
@@ -24,6 +26,7 @@ export const ProductProvider = ({ children }) => {
     }
   }
 
+  // Création d’un nouveau produit (avec image + modificateurs)
   const createProduct = async (productData) => {
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/api/product`, productData, {
@@ -32,13 +35,14 @@ export const ProductProvider = ({ children }) => {
           'Content-Type': 'multipart/form-data'
         }
       })
-      await fetchProducts() // On recharge tout avec les relations peuplées
+      await fetchProducts() // On recharge les produits pour refléter les changements
     } catch (err) {
       console.error('Erreur createProduct :', err)
       alert('Erreur lors de la création du produit')
     }
   }
 
+  // Mise à jour d’un produit existant
   const updateProduct = async (id, updatedData) => {
     try {
       await axios.put(`${import.meta.env.VITE_API_URL}/api/product/${id}`, updatedData, {
@@ -47,13 +51,14 @@ export const ProductProvider = ({ children }) => {
           'Content-Type': 'multipart/form-data'
         }
       })
-      await fetchProducts() // Pareil, on recharge pour avoir les catégories complètes
+      await fetchProducts() // On recharge pour actualiser les infos liées (ex : catégorie)
     } catch (err) {
       console.error('Erreur updateProduct :', err)
       alert('Erreur lors de la mise à jour du produit')
     }
   }
 
+  // Suppression d’un produit par son ID
   const deleteProduct = async (id) => {
     try {
       await axios.delete(`${import.meta.env.VITE_API_URL}/api/product/${id}`, {
@@ -61,17 +66,19 @@ export const ProductProvider = ({ children }) => {
           'Authorization': `Bearer ${token}`
         }
       })
-      await fetchProducts() // Même logique pour garder les données cohérentes
+      await fetchProducts() // On recharge la liste après suppression
     } catch (err) {
       console.error('Erreur deleteProduct :', err)
       alert('Erreur lors de la suppression du produit')
     }
   }
 
+  // Chargement initial des produits au montage
   useEffect(() => {
     fetchProducts()
   }, [])
 
+  // Fourniture du contexte à l’application
   return (
     <ProductContext.Provider value={{
       products,

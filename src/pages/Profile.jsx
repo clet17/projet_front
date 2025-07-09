@@ -4,12 +4,12 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import '../styles/pages/Profile.scss'
 
-
 function Profile() {
   const { tokenStorage, logout, loading, setLoading } = useContext(AuthContext)
   const [user, setUser] = useState(null)
   const [editMode, setEditMode] = useState(false)
 
+  // Récupère les informations du profil utilisateur (GET /user/me)
   const fetchProfile = async () => {
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/me`, {
@@ -25,16 +25,19 @@ function Profile() {
     }
   }
 
+  // Déclenche la récupération du profil si le token est dispo
   useEffect(() => {
     if (tokenStorage) {
       fetchProfile()
     }
   }, [tokenStorage])
 
+  // Mise à jour locale des champs modifiés dans le formulaire
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value })
   }
 
+  // Envoie les nouvelles infos utilisateur au serveur (PUT /user/me)
   const handleUpdate = async (e) => {
     e.preventDefault()
     try {
@@ -62,12 +65,14 @@ function Profile() {
     }
   }
 
+  // Affiche un message pendant le chargement ou si les données ne sont pas encore prêtes
   if (loading || !user) return <p>Chargement...</p>
 
   return (
     <main className='profile'>
       <h1>Mon profil</h1>
 
+      {/* Affichage en lecture seule si editMode est désactivé */}
       {!editMode ? (
         <>
           <ul>
@@ -80,6 +85,7 @@ function Profile() {
           <button onClick={() => setEditMode(true)}>Modifier</button>
         </>
       ) : (
+        // Formulaire d’édition du profil
         <form onSubmit={handleUpdate} className='profile__form'>
           <input
             type='text'
@@ -114,6 +120,7 @@ function Profile() {
         </form>
       )}
 
+      {/* Actions supplémentaires : voir les commandes + se déconnecter */}
       <div className='profile__actions'>
         <Link to='/commandes' className='btn btn--light'>Voir mes commandes</Link>
         <button onClick={logout} className='btn btn--danger'>Déconnexion</button>

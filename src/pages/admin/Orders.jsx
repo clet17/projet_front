@@ -4,9 +4,11 @@ import '../../styles/pages/AdminOrders.scss'
 import AdminBackButton from '../../components/AdminBackButton'
 
 function AdminOrders() {
+  // État pour stocker les commandes et gérer le chargement
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(true)
 
+  // Récupère toutes les commandes depuis l'API
   const fetchOrders = async () => {
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/orders`, {
@@ -23,6 +25,7 @@ function AdminOrders() {
     }
   }
 
+  // Met à jour le statut d’une commande
   const updateStatus = async (id, newStatus) => {
     try {
       await axios.put(`${import.meta.env.VITE_API_URL}/api/order/${id}`, {
@@ -39,16 +42,18 @@ function AdminOrders() {
     }
   }
 
+  // Chargement initial et mise à jour auto toutes les 10s
   useEffect(() => {
     fetchOrders()
-
     const interval = setInterval(fetchOrders, 10000)
     return () => clearInterval(interval)
   }, [])
 
+  // Séparation des commandes selon leur statut
   const ongoing = orders.filter(o => o.status !== 'Récupérée')
   const completed = orders.filter(o => o.status === 'Récupérée')
 
+  // Affiche les détails d’un produit dans la commande
   const renderProductOrder = (po, index) => {
     const mods = po.modifiers.map(m => m.name).join(', ')
     return (
@@ -61,6 +66,7 @@ function AdminOrders() {
     )
   }
 
+  // Affiche une commande complète
   const renderOrder = (order, isHighlighted = false) => (
     <div key={order._id} className={`order-card ${isHighlighted ? 'highlight' : ''}`}>
       <h3>Commande du {new Date(order.order_date).toLocaleString()}</h3>
@@ -83,9 +89,10 @@ function AdminOrders() {
 
   return (
     <div className='admin-orders-page'>
-      <AdminBackButton />  
+      <AdminBackButton />
       <h1>Commandes clients</h1>
 
+      {/* Bloc des commandes en cours */}
       {ongoing.length > 0 && (
         <section>
           <h2>Commandes en cours</h2>
@@ -93,6 +100,7 @@ function AdminOrders() {
         </section>
       )}
 
+      {/* Bloc historique */}
       {completed.length > 0 && (
         <section>
           <h2>Historique</h2>

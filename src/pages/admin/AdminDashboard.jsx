@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import '../../styles/pages/AdminDashboard.scss'
 
+//Dashboard de l'admin permenant de naviguer vers ses pages
 function AdminDashboard() {
   return (
     <main className='admin-dashboard'>

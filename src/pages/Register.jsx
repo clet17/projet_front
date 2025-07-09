@@ -14,11 +14,13 @@ function Register() {
   const [address, setAddress] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
+  // Vérifie que le mot de passe respecte les critères de sécurité
   const isPasswordValid = (password) => {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{12,}$/
     return regex.test(password)
   }
 
+  // Envoie le formulaire d’inscription après validation
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -35,6 +37,7 @@ function Register() {
       phone,
       address
     }
+
     setErrorMessage('')
     handleRegister(e, data)
   }
@@ -42,6 +45,8 @@ function Register() {
   return (
     <div className='register'>
       <h2>Créer un compte</h2>
+
+      {/* Formulaire d’inscription */}
       <form onSubmit={handleSubmit}>
         <input type='text' placeholder='Prénom *' value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
         <input type='text' placeholder='Nom *' value={lastName} onChange={(e) => setLastName(e.target.value)} required />
@@ -53,12 +58,12 @@ function Register() {
         <button type='submit'>S'inscrire</button>
       </form>
 
+      {/* Lien vers la page de connexion */}
       <div className='register__login-link'>
         <p>Déjà inscrit ? <Link to='/login'>Connectez-vous</Link></p>
       </div>
     </div>
-)
-
+  )
 }
 
 export default Register

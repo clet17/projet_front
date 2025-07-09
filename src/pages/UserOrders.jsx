@@ -6,6 +6,7 @@ function UserOrders() {
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(true)
 
+  // Récupère les commandes de l’utilisateur connecté
   const fetchOrders = async () => {
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/order`, {
@@ -22,6 +23,7 @@ function UserOrders() {
     }
   }
 
+  // Appelle la récupération des commandes au chargement + toutes les 10 secondes
   useEffect(() => {
     fetchOrders()
 
@@ -32,9 +34,11 @@ function UserOrders() {
     return () => clearInterval(interval)
   }, [])
 
+  // Sépare les commandes en cours et les commandes terminées
   const ongoing = orders.filter(o => o.status !== 'Récupérée')
   const completed = orders.filter(o => o.status === 'Récupérée')
 
+  // Affiche un produit d’une commande
   const renderProductOrder = (po, index) => {
     const mods = po.modifiers.map(m => m.name).join(', ')
     return (
@@ -47,6 +51,7 @@ function UserOrders() {
     )
   }
 
+  // Affiche une commande complète
   const renderOrder = (order, isHighlighted = false) => (
     <div key={order._id} className={`order-card ${isHighlighted ? 'highlight' : ''}`}>
       <h3>Commande du {new Date(order.order_date).toLocaleString()}</h3>
@@ -56,12 +61,14 @@ function UserOrders() {
     </div>
   )
 
+  // Affiche un message pendant le chargement
   if (loading) return <p>Chargement...</p>
 
   return (
     <div className='user-orders-page'>
       <h1>Mes Commandes</h1>
 
+      {/* Bloc pour les commandes non récupérées */}
       {ongoing.length > 0 && (
         <section>
           <h2>Commandes en cours</h2>
@@ -69,6 +76,7 @@ function UserOrders() {
         </section>
       )}
 
+      {/* Bloc pour les commandes terminées */}
       {completed.length > 0 && (
         <section>
           <h2>Historique</h2>
@@ -76,6 +84,7 @@ function UserOrders() {
         </section>
       )}
 
+      {/* Message si aucune commande */}
       {orders.length === 0 && <p>Aucune commande trouvée.</p>}
     </div>
   )

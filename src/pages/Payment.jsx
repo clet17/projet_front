@@ -17,15 +17,16 @@ function Payment() {
   const [error, setError] = useState(null)
   const [success, setSuccess] = useState(false)
 
+  // Si le panier est vide, on redirige vers la page de commande
   useEffect(() => {
     if (cart.length === 0) {
       navigate('/commander')
       return
     }
 
+    // Création d’un Payment Intent via Stripe
     const createIntent = async () => {
       try {
-        // console.log('Total ', cartTotal)
         const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/create-payment-intent`, {
           amount: cartTotal
         })
@@ -41,10 +42,12 @@ function Payment() {
     createIntent()
   }, [cartTotal, cart, navigate])
 
+  // Soumission du formulaire de paiement
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!stripe || !elements || !clientSecret) return
 
+    // Confirmation du paiement avec Stripe
     const result = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement)
@@ -56,6 +59,7 @@ function Payment() {
       setError('Payment failed')
     } else if (result.paymentIntent.status === 'succeeded') {
       try {
+        // On prépare la commande pour l’envoyer au back
         const product_orders = cart.map(item => ({
           product: item.product,
           quantity: item.quantity,
@@ -64,6 +68,7 @@ function Payment() {
           modifiers: item.modifiers
         }))
 
+        // Envoi de la commande au serveur
         await axios.post(`${import.meta.env.VITE_API_URL}/api/order`, {
           total_price: cartTotal,
           product_orders: JSON.stringify(product_orders)
@@ -83,9 +88,13 @@ function Payment() {
     }
   }
 
+  // Affichage pendant le chargement
   if (loading) return <p>Loading payment...</p>
+
+  // Affichage en cas d'erreur
   if (error) return <p>{error}</p>
 
+  // Affichage de confirmation en cas de succès
   if (success) {
     return (
       <div className='payment-page'>
@@ -96,6 +105,7 @@ function Payment() {
     )
   }
 
+  // Affichage du formulaire de paiement
   return (
     <div className='payment-page'>
       <h1>Paiement sécurisé</h1>

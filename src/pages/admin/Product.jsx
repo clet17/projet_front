@@ -1,4 +1,3 @@
-// src/pages/AdminProduct.jsx
 import { useContext, useEffect, useState } from 'react'
 import { ProductContext } from '../../context/productContext'
 import { ProductCategoryContext } from '../../context/productCategoryContext'
@@ -7,10 +6,12 @@ import '../../styles/pages/AdminProduct.scss'
 import AdminBackButton from '../../components/AdminBackButton'
 
 function AdminProduct() {
+  // Récupération des contextes pour les produits, catégories et modificateurs
   const { products, createProduct, updateProduct, deleteProduct, fetchProducts } = useContext(ProductContext)
   const { categories, fetchCategories } = useContext(ProductCategoryContext)
   const { modifiers, fetchModifiers } = useContext(ModifierContext)
 
+  // Formulaire d'ajout de produit
   const [form, setForm] = useState({
     name: '',
     description: '',
@@ -21,15 +22,18 @@ function AdminProduct() {
     category: ''
   })
 
+  // État pour la modification d’un produit existant
   const [editProduct, setEditProduct] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  // Chargement initial des données nécessaires
   useEffect(() => {
     fetchProducts()
     fetchCategories()
     fetchModifiers()
   }, [])
 
+  // Gestion du changement dans le formulaire d'ajout
   const handleFormChange = (e) => {
     const { name, value, files } = e.target
     setForm(prev => ({
@@ -38,6 +42,7 @@ function AdminProduct() {
     }))
   }
 
+  // Soumission du formulaire d’ajout de produit
   const handleCreate = async (e) => {
     e.preventDefault()
     const formData = new FormData()
@@ -48,6 +53,7 @@ function AdminProduct() {
     setForm({ name: '', description: '', ingredients: '', allergens: '', price: '', image: null, category: '' })
   }
 
+  // Ouvre la modale de modification avec les données préremplies
   const openModal = (product) => {
     setEditProduct({
       ...product,
@@ -58,6 +64,7 @@ function AdminProduct() {
     setIsModalOpen(true)
   }
 
+  // Gère les changements dans le formulaire de modification
   const handleEditChange = (e) => {
     const { name, value, files, type, checked } = e.target
 
@@ -76,6 +83,7 @@ function AdminProduct() {
     }
   }
 
+  // Soumission du formulaire de modification
   const handleEditSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData()
@@ -89,6 +97,7 @@ function AdminProduct() {
     setIsModalOpen(false)
   }
 
+  // Suppression d’un produit
   const handleDelete = async () => {
     if (window.confirm('Supprimer ce produit ?')) {
       await deleteProduct(editProduct._id)
@@ -96,6 +105,7 @@ function AdminProduct() {
     }
   }
 
+  // Regroupe les modificateurs par type
   const modifiersByType = {
     option: [],
     sauce: [],
@@ -113,6 +123,7 @@ function AdminProduct() {
       <AdminBackButton />
       <h2>Produits</h2>
 
+      {/* Formulaire pour ajouter un produit */}
       <form onSubmit={handleCreate} className='admin-products__form'>
         <input type='text' name='name' placeholder='Nom' value={form.name} onChange={handleFormChange} required />
         <textarea name='description' placeholder='Description' value={form.description} onChange={handleFormChange} />
@@ -127,6 +138,7 @@ function AdminProduct() {
         <button type='submit'>Ajouter</button>
       </form>
 
+      {/* Liste des produits avec bouton Modifier */}
       <div className='admin-products__list'>
         {products.map(prod => (
           <div key={prod._id} className='admin-products__item'>
@@ -140,6 +152,7 @@ function AdminProduct() {
         ))}
       </div>
 
+      {/* Modale de modification */}
       {isModalOpen && editProduct && (
         <div className='admin-products__modal'>
           <form onSubmit={handleEditSubmit}>
@@ -156,6 +169,8 @@ function AdminProduct() {
               <input type='checkbox' name='available' checked={editProduct.available} onChange={handleEditChange} />
               Disponible
             </label>
+
+            {/* Affichage des modificateurs par type */}
             <div className='modifiers-group'>
               {['option', 'sauce', 'supplément'].map(type => (
                 modifiersByType[type].length > 0 && (
@@ -177,6 +192,7 @@ function AdminProduct() {
                 )
               ))}
             </div>
+
             <input type='file' name='image' accept='image/*' onChange={handleEditChange} />
             <button type='submit'>Valider</button>
             <button type='button' onClick={handleDelete}>🗑️ Supprimer</button>

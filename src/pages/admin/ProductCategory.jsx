@@ -4,6 +4,7 @@ import '../../styles/pages/AdminProductCategories.scss'
 import AdminBackButton from '../../components/AdminBackButton'
 
 function AdminProductCategories() {
+  // Récupération des fonctions et données depuis le contexte
   const {
     categories,
     fetchCategories,
@@ -12,14 +13,19 @@ function AdminProductCategories() {
     deleteCategory
   } = useContext(ProductCategoryContext)
 
+  // État pour le formulaire de création
   const [newCategory, setNewCategory] = useState({ name: '', description: '', image: null })
+
+  // État pour la catégorie à modifier
   const [editCategory, setEditCategory] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  // Chargement des catégories à l’ouverture de la page
   useEffect(() => {
     fetchCategories()
   }, [])
 
+  // Gestion des changements dans le formulaire de création
   const handleChange = (e) => {
     const { name, value, files } = e.target
     setNewCategory(prev => ({
@@ -28,17 +34,20 @@ function AdminProductCategories() {
     }))
   }
 
+  // Envoi du formulaire pour créer une nouvelle catégorie
   const handleCreate = async (e) => {
     e.preventDefault()
     await createCategory(newCategory)
     setNewCategory({ name: '', description: '', image: null })
   }
 
+  // Ouverture de la modale de modification
   const openModal = (category) => {
     setEditCategory(category)
     setIsModalOpen(true)
   }
 
+  // Gestion des changements dans le formulaire de modification
   const handleEditChange = (e) => {
     const { name, value, files } = e.target
     setEditCategory(prev => ({
@@ -47,12 +56,14 @@ function AdminProductCategories() {
     }))
   }
 
+  // Envoi des modifications
   const handleUpdate = async (e) => {
     e.preventDefault()
     await updateCategory(editCategory._id, editCategory)
     setIsModalOpen(false)
   }
 
+  // Suppression de la catégorie sélectionnée
   const handleDelete = async () => {
     const confirm = window.confirm('Supprimer cette catégorie ?')
     if (confirm) {
@@ -66,6 +77,7 @@ function AdminProductCategories() {
       <AdminBackButton />
       <h2>Catégories de produits</h2>
 
+      {/* Formulaire pour ajouter une nouvelle catégorie */}
       <form onSubmit={handleCreate} className='admin-categories__form'>
         <input type='text' name='name' placeholder='Nom' value={newCategory.name} onChange={handleChange} required />
         <input type='text' name='description' placeholder='Description' value={newCategory.description} onChange={handleChange} required />
@@ -73,6 +85,7 @@ function AdminProductCategories() {
         <button type='submit'>Ajouter</button>
       </form>
 
+      {/* Liste des catégories existantes */}
       <ul className='admin-categories__list'>
         {categories && categories.map(category => (
           <li key={category._id} className='admin-categories__item'>
@@ -86,6 +99,7 @@ function AdminProductCategories() {
         ))}
       </ul>
 
+      {/* Modale de modification d’une catégorie */}
       {isModalOpen && editCategory && (
         <div className='admin-categories__modal'>
           <form onSubmit={handleUpdate}>

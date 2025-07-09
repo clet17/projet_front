@@ -9,13 +9,13 @@
   &__hero {
     position: relative;
     width: 100%;
-    max-height: 300px; // Limite la hauteur totale de la section
+    max-height: 300px; 
     overflow: hidden;
 
     .home__image {
       width: 100%;
-      height: auto;
-      max-height: 300px; // Empêche l'image de s'étirer
+      // height: auto;
+      max-height: 300px;
       object-fit: cover;
       display: block;
     }
@@ -68,7 +68,7 @@
         background-color: $text-light;
         color: $text-dark;
         padding: 1rem;
-        border: 2px solid #00f0ff; // bleu fluo
+        border: 2px solid #00f0ff;
         border-radius: 6px;
         text-decoration: none;
         font-weight: bold;
