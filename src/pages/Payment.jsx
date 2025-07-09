@@ -71,7 +71,7 @@ function Payment() {
         // Envoi de la commande au serveur
         await axios.post(`${import.meta.env.VITE_API_URL}/api/order`, {
           total_price: cartTotal,
-          product_orders: product_orders
+          product_orders: JSON.stringify(product_orders)
         }, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
