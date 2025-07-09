@@ -1,3 +1,8 @@
+import { useContext, useState } from 'react'
+import { CartContext } from '../context/cartContext'
+import { ModifierContext } from '../context/modifierContext'
+import '../styles/components/ProductModal.scss'
+
 function ProductModal({ product, onClose }) {
   const { addItem } = useContext(CartContext)
   const { modifiers } = useContext(ModifierContext)
